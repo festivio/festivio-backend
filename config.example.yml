@@ -1,0 +1,16 @@
+env: "dev"
+
+http_server:
+  host: "localhost"
+  port: "8000"
+  read_timeout: "15s"
+  write_timeout: "15s"
+  jwt_token_secret: ""
+
+postgres:
+  host: ""
+  port: ""
+  user: ""
+  passwd: ""
+  db_name: ""
+  ssl_mode: ""
