@@ -14,5 +14,5 @@ func (s *Server) MapHandlers(g *gin.Engine) {
 	hdr := handler.NewHandler(srv, s.log, s.cfg)
 
 	mainGroup := g.Group("/")
-	handler.MapRoutes(mainGroup, hdr)
+	handler.MapRoutes(mainGroup, hdr, s.db)
 }

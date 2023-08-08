@@ -1,14 +1,11 @@
 package utils
 
 import (
-	"errors"
 	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt"
 )
-
-var ErrTokenExpired = errors.New("token has expired")
 
 func GenerateToken(ttl time.Duration, payload interface{}, secretJWTKey string) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
@@ -44,13 +41,6 @@ func ValidateToken(token string, signedJWTKey string) (interface{}, error) {
 	claims, ok := tok.Claims.(jwt.MapClaims)
 	if !ok || !tok.Valid {
 		return nil, fmt.Errorf("invalid token claim")
-	}
-
-	expirationTime := int64(claims["exp"].(float64))
-	currentTime := time.Now().Unix()
-
-	if currentTime > expirationTime {
-		return nil, ErrTokenExpired
 	}
 
 	return claims["sub"], nil
