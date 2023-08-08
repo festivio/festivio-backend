@@ -11,7 +11,7 @@ import (
 func (s *Server) MapHandlers(g *gin.Engine) {
 	repo := repository.NewRepository(s.db, s.log)
 	srv := service.NewService(repo, s.db, s.log)
-	hdr := handler.NewHandler(srv, s.log)
+	hdr := handler.NewHandler(srv, s.log, s.cfg)
 
 	mainGroup := g.Group("/")
 	handler.MapRoutes(mainGroup, hdr)

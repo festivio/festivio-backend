@@ -11,6 +11,7 @@ type Config struct {
 	Env        string `yaml:"env"`
 	HttpServer `yaml:"http_server"`
 	Postgres   `yaml:"postgres"`
+	Token      `yaml:"token"`
 }
 
 type HttpServer struct {
@@ -18,7 +19,6 @@ type HttpServer struct {
 	Port         string        `yaml:"port"`
 	ReadTimeout  time.Duration `yaml:"read_timeout"`
 	WriteTimeout time.Duration `yaml:"write_timeout"`
-	JwtTokenSecret string `yaml:"jwt_token_secret"`
 }
 
 type Postgres struct {
@@ -28,6 +28,12 @@ type Postgres struct {
 	Passwd  string `yaml:"passwd"`
 	DbName  string `yaml:"db_name"`
 	SslMode string `yaml:"ssl_mode"`
+}
+
+type Token struct {
+	MaxAge         int           `yaml:"maxage"`
+	ExpiredIn      time.Duration `yaml:"expired_in"`
+	JwtTokenSecret string        `yaml:"jwt_token_secret"`
 }
 
 var (

@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/festivio/festivio-backend/config"
+	"github.com/festivio/festivio-backend/domain"
 	"github.com/festivio/festivio-backend/internal/database"
 )
 
@@ -13,7 +14,8 @@ func main() {
 		panic(err)
 	}
 
-	err = db.AutoMigrate()
+	db.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"")
+	err = db.AutoMigrate(&domain.User{})
 	if err != nil {
 		println("Migration failed")
 		panic(err)
