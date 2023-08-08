@@ -6,3 +6,15 @@ type ErrorStruct struct {
 		Message string `json:"message"`
 	} `json:"error"`
 }
+
+type SignInResponse struct {
+	Data struct {
+		Token string `json:"token"`
+	}
+}
+
+type MessageResponse struct {
+	Data struct {
+		Message string `json:"message"`
+	}
+}
