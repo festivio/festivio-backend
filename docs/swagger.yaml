@@ -1,0 +1,165 @@
+basePath: /
+definitions:
+  domain.ErrorStruct:
+    properties:
+      error:
+        properties:
+          code:
+            type: integer
+          message:
+            type: string
+        type: object
+    type: object
+  domain.MessageResponse:
+    properties:
+      data:
+        properties:
+          message:
+            type: string
+        type: object
+    type: object
+  domain.SignInInput:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 8
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  domain.SignInResponse:
+    properties:
+      data:
+        properties:
+          token:
+            type: string
+        type: object
+    type: object
+  domain.SignUpInput:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        minLength: 8
+        type: string
+      passwordConfirm:
+        minLength: 8
+        type: string
+      role:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    - passwordConfirm
+    - role
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8000
+info:
+  contact:
+    url: https://github.com/festivio/festivio-backend
+  description: REST API for Festivio App
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Festivio API
+  version: "1.0"
+paths:
+  /log-out:
+    post:
+      consumes:
+      - application/json
+      description: User logOut
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.MessageResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: User LogOut
+      tags:
+      - Auth
+  /sign-in:
+    post:
+      consumes:
+      - application/json
+      description: User signIn
+      parameters:
+      - description: sign-in info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/domain.SignInInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.SignInResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorStruct'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/domain.ErrorStruct'
+      summary: User SignIn
+      tags:
+      - Auth
+  /sign-up:
+    post:
+      consumes:
+      - application/json
+      description: User signUp
+      parameters:
+      - description: sign-up info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/domain.SignUpInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorStruct'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/domain.ErrorStruct'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/domain.ErrorStruct'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/domain.ErrorStruct'
+      summary: User SignUp
+      tags:
+      - Auth
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
