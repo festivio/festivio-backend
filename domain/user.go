@@ -45,3 +45,9 @@ type UserInfo struct {
 		} `json:"notifications_params"`
 	} `json:"params"`
 }
+
+type ShortUserInfo struct {
+	Name  string `json:"name" binding:"required"`
+	Phone string `json:"phone" binding:"required"`
+	Role  string `json:"role" binding:"required"`
+}

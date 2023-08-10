@@ -9,4 +9,6 @@ type HandlerInterface interface {
 	LogOutUser() gin.HandlerFunc
 	// User methods
 	GetMe() gin.HandlerFunc
+	// Team methods
+	GetTeam() gin.HandlerFunc
 }

@@ -13,6 +13,8 @@ const (
 	logOut = "/log-out"
 	// User
 	getMe = "/me"
+	// Team
+	getTeam = "/team"
 )
 
 func MapRoutes(group *gin.RouterGroup, h HandlerInterface, db *gorm.DB) {
@@ -22,4 +24,6 @@ func MapRoutes(group *gin.RouterGroup, h HandlerInterface, db *gorm.DB) {
 	group.POST(logOut, middleware.DeserializeUser(db), h.LogOutUser())
 	// User routes
 	group.GET(getMe, middleware.DeserializeUser(db), h.GetMe())
+	// Team routes
+	group.GET(getTeam, middleware.DeserializeUser(db), h.GetTeam())
 }

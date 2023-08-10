@@ -6,4 +6,6 @@ type ServiceInterface interface {
 	// Authorization methods
 	SignUpUser(signUpInput *domain.SignUpInput) error
 	SignInUser(signInInput *domain.SignInInput) (*domain.User, error)
+	// Team methods
+	GetTeam() (*domain.Team, error)
 }

@@ -36,6 +36,6 @@ func (h handler) GetMe() gin.HandlerFunc {
 			Params: params,
 		}
 
-		ctx.JSON(http.StatusOK, &userInfo)
+		ctx.JSON(http.StatusOK, userInfo)
 	}
 }

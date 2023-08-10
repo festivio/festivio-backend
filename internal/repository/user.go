@@ -17,3 +17,14 @@ func (r repository) GetUserByEmail(email string) (*domain.User, error) {
 
 	return &user, nil
 }
+
+func (r repository) GetUsers() ([]*domain.ShortUserInfo, error) {
+	var users []*domain.ShortUserInfo
+	tx := r.db.Table("users").Find(&users)
+	if tx.Error != nil {
+		r.log.Err(tx.Error).Msg("")
+		return nil, tx.Error
+	}
+
+	return users, nil
+}
