@@ -8,10 +8,11 @@ import (
 )
 
 type Config struct {
-	Env        string `yaml:"env"`
-	HttpServer `yaml:"http_server"`
-	Postgres   `yaml:"postgres"`
-	Token      `yaml:"token"`
+	Env         string `yaml:"env"`
+	HttpServer  `yaml:"http_server"`
+	Postgres    `yaml:"postgres"`
+	Token       `yaml:"token"`
+	ExternalApi `yaml:"external_api"`
 }
 
 type HttpServer struct {
@@ -34,6 +35,10 @@ type Token struct {
 	MaxAge         int           `yaml:"maxage"`
 	ExpiredIn      time.Duration `yaml:"expired_in"`
 	JwtTokenSecret string        `yaml:"jwt_token_secret"`
+}
+
+type ExternalApi struct {
+	NumverifyAccessKey string `yaml:"numverify_access_key"`
 }
 
 var (

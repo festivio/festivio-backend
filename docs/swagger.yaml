@@ -12,11 +12,8 @@ definitions:
     type: object
   domain.MessageResponse:
     properties:
-      data:
-        properties:
-          message:
-            type: string
-        type: object
+      message:
+        type: string
     type: object
   domain.SignInInput:
     properties:
@@ -31,11 +28,8 @@ definitions:
     type: object
   domain.SignInResponse:
     properties:
-      data:
-        properties:
-          token:
-            type: string
-        type: object
+      token:
+        type: string
     type: object
   domain.SignUpInput:
     properties:
@@ -49,6 +43,8 @@ definitions:
       passwordConfirm:
         minLength: 8
         type: string
+      phone:
+        type: string
       role:
         type: string
     required:
@@ -56,6 +52,7 @@ definitions:
     - name
     - password
     - passwordConfirm
+    - phone
     - role
     type: object
 externalDocs:

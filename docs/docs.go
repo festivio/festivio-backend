@@ -175,13 +175,8 @@ const docTemplate = `{
         "domain.MessageResponse": {
             "type": "object",
             "properties": {
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "message": {
-                            "type": "string"
-                        }
-                    }
+                "message": {
+                    "type": "string"
                 }
             }
         },
@@ -204,13 +199,8 @@ const docTemplate = `{
         "domain.SignInResponse": {
             "type": "object",
             "properties": {
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "token": {
-                            "type": "string"
-                        }
-                    }
+                "token": {
+                    "type": "string"
                 }
             }
         },
@@ -221,6 +211,7 @@ const docTemplate = `{
                 "name",
                 "password",
                 "passwordConfirm",
+                "phone",
                 "role"
             ],
             "properties": {
@@ -237,6 +228,9 @@ const docTemplate = `{
                 "passwordConfirm": {
                     "type": "string",
                     "minLength": 8
+                },
+                "phone": {
+                    "type": "string"
                 },
                 "role": {
                     "type": "string"

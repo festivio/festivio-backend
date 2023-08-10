@@ -5,6 +5,7 @@ import (
 
 	"github.com/festivio/festivio-backend/domain"
 	"github.com/festivio/festivio-backend/pkg/utils"
+	"github.com/festivio/festivio-backend/pkg/validator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -39,7 +40,30 @@ func (h handler) SignUpUser() gin.HandlerFunc {
 			return
 		}
 
-		err := h.srv.SignUpUser(signUpInput)
+		result, err := validator.IsValidPhoneNumber(signUpInput.Phone)
+		if err != nil {
+			h.log.Err(err).Msg("Number validation error.")
+			errorStruct.Error.Code = http.StatusBadRequest
+			errorStruct.Error.Message = "The specified role does not exist."
+			ctx.JSON(http.StatusBadRequest, &errorStruct)
+			return
+		}
+
+		if !result {
+			errorStruct.Error.Code = http.StatusBadRequest
+			errorStruct.Error.Message = "The phone number is not valid."
+			ctx.JSON(http.StatusBadRequest, &errorStruct)
+			return
+		}
+
+		if signUpInput.Role != "Менеджер" && signUpInput.Role != "Аниматор" {
+			errorStruct.Error.Code = http.StatusBadRequest
+			errorStruct.Error.Message = "The specified role does not exist."
+			ctx.JSON(http.StatusBadRequest, &errorStruct)
+			return
+		}
+
+		err = h.srv.SignUpUser(signUpInput)
 		if err != nil {
 			switch err.Error() {
 			case "user with this email address already exists":
@@ -106,16 +130,10 @@ func (h handler) SignInUser() gin.HandlerFunc {
 			return
 		}
 
-		response := &domain.SignInResponse{
-			Data: struct {
-				Token string `json:"token"`
-			}{
-				Token: token,
-			},
-		}
-
 		ctx.SetCookie("token", token, h.cfg.Token.MaxAge*60, "/", "localhost", false, true)
-		ctx.JSON(http.StatusOK, response)
+		ctx.JSON(http.StatusOK, &domain.SignInResponse{
+			Token: token,
+		})
 	}
 }
 
@@ -130,14 +148,9 @@ func (h handler) SignInUser() gin.HandlerFunc {
 // @Router /log-out [post]
 func (h handler) LogOutUser() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		response := &domain.MessageResponse{
-			Data: struct {
-				Message string `json:"message"`
-			}{
-				Message: "You have successfully logged out.",
-			},
-		}
 		ctx.SetCookie("token", "", -1, "/", "localhost", false, true)
-		ctx.JSON(http.StatusOK, response)
+		ctx.JSON(http.StatusOK, &domain.MessageResponse{
+			Message: "You have successfully logged out.",
+		})
 	}
 }

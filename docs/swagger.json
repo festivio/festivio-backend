@@ -168,13 +168,8 @@
         "domain.MessageResponse": {
             "type": "object",
             "properties": {
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "message": {
-                            "type": "string"
-                        }
-                    }
+                "message": {
+                    "type": "string"
                 }
             }
         },
@@ -197,13 +192,8 @@
         "domain.SignInResponse": {
             "type": "object",
             "properties": {
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "token": {
-                            "type": "string"
-                        }
-                    }
+                "token": {
+                    "type": "string"
                 }
             }
         },
@@ -214,6 +204,7 @@
                 "name",
                 "password",
                 "passwordConfirm",
+                "phone",
                 "role"
             ],
             "properties": {
@@ -230,6 +221,9 @@
                 "passwordConfirm": {
                     "type": "string",
                     "minLength": 8
+                },
+                "phone": {
+                    "type": "string"
                 },
                 "role": {
                     "type": "string"

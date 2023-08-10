@@ -16,6 +16,7 @@ func (s service) SignUpUser(signUpInput *domain.SignUpInput) error {
 
 	newUser := domain.User{
 		Email:    signUpInput.Email,
+		Phone:    signUpInput.Phone,
 		Name:     signUpInput.Name,
 		Password: hashedPassword,
 		Role:     signUpInput.Role,
