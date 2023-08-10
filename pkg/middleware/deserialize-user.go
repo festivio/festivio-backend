@@ -43,7 +43,7 @@ func DeserializeUser(db *gorm.DB) gin.HandlerFunc {
 				ctx.AbortWithStatusJSON(http.StatusForbidden, &errorStruct)
 				return
 			} else {
-				errorStruct.Error.Code = http.StatusForbidden
+				errorStruct.Error.Code = http.StatusUnauthorized
 				errorStruct.Error.Message = err.Error()
 				ctx.AbortWithStatusJSON(http.StatusUnauthorized, &errorStruct)
 				return

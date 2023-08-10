@@ -7,4 +7,6 @@ type HandlerInterface interface {
 	SignUpUser() gin.HandlerFunc
 	SignInUser() gin.HandlerFunc
 	LogOutUser() gin.HandlerFunc
+	// User methods
+	GetMe() gin.HandlerFunc
 }
